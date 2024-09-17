@@ -1,0 +1,48 @@
+// server/app.js
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+
+// Importar rutas
+const adminRoutes = require('./routes/adminRoutes');
+const caregiverRoutes = require('./routes/caregiverRoutes');  // Importar la ruta
+const beneficiaryRoutes = require('./routes/beneficiaryRoutes');
+const donationRoutes = require('./routes/donationRoutes');
+const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profileRoutes');
+
+dotenv.config();
+
+const app = express();
+
+// Middleware para procesar JSON
+app.use(express.json());
+
+// Rutas básicas (más adelante agregarás las reales)
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
+
+// Conectar a MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((error) => {
+  console.error('MongoDB connection error:', error);
+});
+
+// Usar las rutas
+app.use('/api/admins', adminRoutes);
+app.use('/api/caregivers', caregiverRoutes); // Usar la ruta de cuidadores
+app.use('/api/beneficiaries', beneficiaryRoutes);
+app.use('/api/donations', donationRoutes);
+app.use('/api/auth', authRoutes); // Ruta para autenticación
+app.use('/api', profileRoutes); // Ruta para profile
+
+// Iniciar el servidor
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

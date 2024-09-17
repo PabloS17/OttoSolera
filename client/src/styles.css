@@ -1,0 +1,123 @@
+/* Estilos para el feedback visual */
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  
+  .success {
+    color: green;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para los campos del formulario */
+  form {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+  
+  input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="number"]:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos específicos para campos con errores */
+  input.error, textarea.error {
+    border: 2px solid red;
+  }
+  
+  input.success, textarea.success {
+    border: 2px solid green;
+  }
+  
+  /* Estilos para el navbar */
+  nav {
+    background-color: #007bff;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  nav ul li:last-child {
+    margin-right: 0;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  nav ul li a:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Adaptaciones para pantallas pequeñas */
+  @media (max-width: 600px) {
+    nav ul li {
+      display: block;
+      margin: 10px 0;
+    }
+  
+    form {
+      padding: 15px;
+    }
+  
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea, button[type="submit"] {
+      font-size: 0.9rem;
+    }
+  }
+  
