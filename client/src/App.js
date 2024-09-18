@@ -25,6 +25,10 @@ import axios from 'axios';
 
 import AdminRegister from './components/AdminRegister';
 
+import AdminReports from './components/AdminReports';
+
+import InactiveAccounts from './components/InactiveAccounts';
+
 const App = () => {
   // Estado para manejar el token de autenticación
   const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
@@ -131,6 +135,24 @@ const App = () => {
             element={
               <ProtectedRoute authToken={authToken}>
                 <UserProfile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/reports"
+            element={
+              <ProtectedRoute authToken={authToken}>
+                <AdminReports />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/inactivas"
+            element={
+              <ProtectedRoute authToken={authToken}>
+                <InactiveAccounts />
               </ProtectedRoute>
             }
           />

@@ -11,6 +11,8 @@ const AdminNavbar = ({ logout }) => {
         <li><Link to="/admin/caregivers/approved">Lista de cuidadores aprobados</Link></li>
         <li><Link to="/admin/beneficiaries">Lista de beneficiarios</Link></li>
         <li><Link to="/admin/donations">Lista de donaciones</Link></li>
+        <li><Link to="/admin/inactivas">Lista de cuentas inactivas</Link></li>
+        <li><Link to="/admin/reports">Reportes</Link></li>
         <li><Link to="/profile">Perfil</Link></li>
         <li><button onClick={logout}>Cerrar sesión</button></li>
       </ul>

@@ -8,13 +8,14 @@ const SponsorForm = () => {
     nombre: '',
     apellidos: '',
     perteneceCompania: false,
-    correo: ''
+    correo: '',
+    monto: ''  // Nuevo campo para el monto
   });
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
-  const { nombre, apellidos, perteneceCompania, correo } = formData;
+  const { nombre, apellidos, perteneceCompania, correo, monto } = formData;
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -24,6 +25,7 @@ const SponsorForm = () => {
     if (!nombre || nombre.length < 2) newErrors.nombre = 'El nombre debe tener al menos 2 caracteres.';
     if (!apellidos || apellidos.length < 2) newErrors.apellidos = 'Los apellidos deben tener al menos 2 caracteres.';
     if (!correo || !/\S+@\S+\.\S+/.test(correo)) newErrors.correo = 'El correo electrónico no es válido.';
+    if (!monto || isNaN(monto) || parseFloat(monto) <= 0) newErrors.monto = 'El monto debe ser un número positivo.';
     return newErrors;
   };
 
@@ -39,13 +41,14 @@ const SponsorForm = () => {
     }
 
     try {
-      const res = await axios.post('/api/donations', formData);
+      await axios.post('/api/donations', formData);
       setSuccessMessage('Su donación ha sido enviada exitosamente.');
       setFormData({
         nombre: '',
         apellidos: '',
         perteneceCompania: false,
-        correo: ''
+        correo: '',
+        monto: ''  // Reiniciar el monto después del envío
       });
     } catch (error) {
       setErrors({ server: error.response ? error.response.data.message : 'Error al enviar el formulario' });
@@ -81,6 +84,16 @@ const SponsorForm = () => {
           
           <input type="email" name="correo" value={correo} onChange={onChange} placeholder="Correo" required />
           {errors.correo && <p className="error">{errors.correo}</p>}
+          
+          <input
+            type="number"
+            name="monto"
+            value={monto}
+            onChange={onChange}
+            placeholder="Monto de la Donación"
+            required
+          />
+          {errors.monto && <p className="error">{errors.monto}</p>}
           
           {errors.server && <p className="error">{errors.server}</p>}
           

@@ -241,4 +241,49 @@ router.delete('/beneficiaries/:id', async (req, res) => {
   }
 });
 
+router.put('/reactivar/:id', async (req, res) => {
+  const { id } = req.params;
+  const { tipoUsuario, datosActualizados } = req.body;  // tipoUsuario puede ser "caregiver" o "beneficiary"
+
+  try {
+    let user;
+    if (tipoUsuario === 'caregiver') {
+      user = await Caregiver.findById(id);
+    } else if (tipoUsuario === 'beneficiary') {
+      user = await Beneficiary.findById(id);
+    }
+
+    if (!user) {
+      return res.status(404).json({ msg: 'Usuario no encontrado' });
+    }
+
+    // Verificar que los datos estén actualizados (lógica simplificada)
+    if (datosActualizados) {
+      user.actividad = 'activo';  // Cambiar la actividad a 'activo'
+      await user.save();
+      return res.json({ msg: 'Cuenta reactivada con éxito', user });
+    } else {
+      return res.status(400).json({ msg: 'Los datos no están actualizados' });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error en el servidor');
+  }
+});
+
+router.get('/inactivas', async (req, res) => {
+  try {
+    const inactivosCuidadores = await Caregiver.find({ actividad: 'inactivo' });
+    const inactivosBeneficiarios = await Beneficiary.find({ actividad: 'inactivo' });
+
+    res.json({
+      cuidadoresInactivos: inactivosCuidadores,
+      beneficiariosInactivos: inactivosBeneficiarios
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error en el servidor');
+  }
+});
+
 module.exports = router;

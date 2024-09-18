@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+require('./scheduler/cronJobs');
+
 // Importar rutas
 const adminRoutes = require('./routes/adminRoutes');
 const caregiverRoutes = require('./routes/caregiverRoutes');  // Importar la ruta
@@ -10,6 +12,7 @@ const beneficiaryRoutes = require('./routes/beneficiaryRoutes');
 const donationRoutes = require('./routes/donationRoutes');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profileRoutes');
+const reportRoutes = require('./routes/reportRoutes');
 
 dotenv.config();
 
@@ -40,6 +43,7 @@ app.use('/api/beneficiaries', beneficiaryRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/auth', authRoutes); // Ruta para autenticación
 app.use('/api', profileRoutes); // Ruta para profile
+app.use('/api/reports', reportRoutes); // Ruta para reportes
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 5000;

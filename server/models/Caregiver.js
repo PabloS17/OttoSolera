@@ -48,6 +48,14 @@ const CaregiverSchema = new mongoose.Schema({
   estado: {
     type: String,
     default: 'pendiente',  // Estados posibles: "pendiente", "aprobado", "rechazado"
+  },
+  actividad: {
+    type: String,
+    default: 'activo',  // Puede ser 'activo' o 'inactivo'
+  },
+  ultimoLogin: {
+    type: Date,
+    default: Date.now,
   }
 }, {
   timestamps: true,  // Añade createdAt y updatedAt automáticamente

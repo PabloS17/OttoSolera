@@ -17,6 +17,10 @@ const DonationSchema = new mongoose.Schema({
   correo: {
     type: String,
     required: true,
+  },
+  monto: {
+    type: Number, // Añadir campo de monto si es necesario
+    required: false,
   }
 }, {
   timestamps: true,  // Añade createdAt y updatedAt automáticamente

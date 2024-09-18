@@ -39,6 +39,14 @@ const BeneficiarySchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  actividad: {
+    type: String,
+    default: 'activo',  // Puede ser 'activo' o 'inactivo'
+  },
+  ultimoLogin: {
+    type: Date,
+    default: Date.now,
   }
 }, {
   timestamps: true,  // Añade createdAt y updatedAt automáticamente
