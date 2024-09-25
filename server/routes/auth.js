@@ -9,6 +9,8 @@ const Admin = require('../models/Admin');
 const Beneficiary = require('../models/Beneficiary');
 const Caregiver = require('../models/Caregiver');
 
+const authMiddleware = require('../middleware/authMiddleware'); // Middleware para proteger la ruta y verificar el token
+
 // Ruta de inicio de sesión
 router.post('/login', async (req, res) => {
   const { correo, password } = req.body;
@@ -64,6 +66,36 @@ router.post('/login', async (req, res) => {
       }
     );
 
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error en el servidor');
+  }
+});
+
+// Ruta para obtener el rol del usuario logueado
+router.get('/user-role', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Verificar si el usuario es administrador
+    let user = await Admin.findById(userId);
+    if (user) {
+      return res.json({ role: 'admin' });
+    }
+
+    // Verificar si el usuario es beneficiario
+    user = await Beneficiary.findById(userId);
+    if (user) {
+      return res.json({ role: 'beneficiary' });
+    }
+
+    // Verificar si el usuario es cuidador
+    user = await Caregiver.findById(userId);
+    if (user) {
+      return res.json({ role: 'caregiver' });
+    }
+
+    res.status(404).json({ msg: 'Rol de usuario no encontrado' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Error en el servidor');

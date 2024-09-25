@@ -41,10 +41,18 @@ const CaregiverSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  costo: {
+    type: Number,
+    default: 0,  // Costo por sus servicios, 0 si no cobra
+  },
   password: {
     type: String,
     required: true,
   },
+  favoritos: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Beneficiary'
+    }],
   estado: {
     type: String,
     default: 'pendiente',  // Estados posibles: "pendiente", "aprobado", "rechazado"

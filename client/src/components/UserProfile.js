@@ -6,13 +6,18 @@ const UserProfile = () => {
   const [profile, setProfile] = useState({
     nombre: '',
     apellidos: '',
+    identificacion: '',
     correo: '',
     telefono: '',
     residencia: '',
+    edad: '',
     especialidades: '',
     experiencia: '',
+    necesidades: '', // Solo para beneficiarios
   });
+  
   const [role, setRole] = useState('');
+  const [averageRating, setAverageRating] = useState(null); // Medidor de satisfacción
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -20,6 +25,12 @@ const UserProfile = () => {
         const res = await axios.get('/api/profile');
         setProfile(res.data);
         setRole(res.data.role); // Asigna el rol del usuario
+
+        // Si es beneficiario o cuidador, obtener el promedio de calificaciones
+        if (res.data.role === 'beneficiary' || res.data.role === 'caregiver') {
+          const ratingRes = await axios.get(`/api/users/${res.data._id}/feedback/average`);
+          setAverageRating(ratingRes.data.averageRating);
+        }
       } catch (error) {
         console.error('Error al obtener los datos del perfil:', error);
       }
@@ -61,6 +72,14 @@ const UserProfile = () => {
           required
         />
         <input
+          type="text"
+          name="identificacion"
+          value={profile.identificacion}
+          onChange={onChange}
+          placeholder="Identificación"
+          required
+        />
+        <input
           type="email"
           name="correo"
           value={profile.correo}
@@ -76,26 +95,45 @@ const UserProfile = () => {
           placeholder="Teléfono"
           required
         />
+
         {role !== 'admin' && (
           <>
+            <input
+              type="number"
+              name="edad"
+              value={profile.edad}
+              onChange={onChange}
+              placeholder="Edad"
+              required
+            />
             <input
               type="text"
               name="residencia"
               value={profile.residencia}
               onChange={onChange}
-              placeholder="Residencia"
+              placeholder="Lugar de Residencia"
+              required
             />
+
+            {role === 'beneficiary' && (
+              <textarea
+                name="necesidades"
+                value={profile.necesidades}
+                onChange={onChange}
+                placeholder="Necesidades"
+                required
+              />
+            )}
+
             {role === 'caregiver' && (
               <>
-                <input
-                  type="text"
+                <textarea
                   name="especialidades"
                   value={profile.especialidades}
                   onChange={onChange}
                   placeholder="Especialidades"
                 />
-                <input
-                  type="text"
+                <textarea
                   name="experiencia"
                   value={profile.experiencia}
                   onChange={onChange}
@@ -103,8 +141,14 @@ const UserProfile = () => {
                 />
               </>
             )}
+
+            {/* Mostrar el medidor de satisfacción solo para beneficiarios y cuidadores */}
+            {averageRating !== null && (
+              <p>Calificación Promedio: {averageRating.toFixed(1)} / 5 estrellas</p>
+            )}
           </>
         )}
+
         <button type="submit">Guardar Cambios</button>
       </form>
     </div>

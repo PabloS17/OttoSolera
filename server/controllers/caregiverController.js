@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 // Registro de Cuidador
 exports.registerCaregiver = async (req, res) => {
-  const { nombre, apellidos, identificacion, correo, telefono, residencia, edad, especialidades, experiencia, password } = req.body;
+  const { nombre, apellidos, identificacion, correo, telefono, residencia, edad, especialidades, experiencia, password, costo } = req.body;
 
   try {
     // Verificar si el cuidador ya existe
@@ -25,7 +25,8 @@ exports.registerCaregiver = async (req, res) => {
       edad,
       especialidades,
       experiencia,
-      password
+      password,
+      costo
     });
 
     // Guardar el cuidador en la base de datos

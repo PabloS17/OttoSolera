@@ -40,6 +40,10 @@ const BeneficiarySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  favoritos: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Caregiver'
+  }],
   actividad: {
     type: String,
     default: 'activo',  // Puede ser 'activo' o 'inactivo'

@@ -14,13 +14,14 @@ const CaregiverForm = () => {
     edad: '',
     especialidades: '',
     experiencia: '',
-    password: ''
+    password: '',
+    costo: ''  // Añadir el campo de costo
   });
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
-  const { nombre, apellidos, identificacion, correo, telefono, residencia, edad, especialidades, experiencia, password } = formData;
+  const { nombre, apellidos, identificacion, correo, telefono, residencia, edad, especialidades, experiencia, password, costo } = formData;
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -33,6 +34,7 @@ const CaregiverForm = () => {
     if (!correo || !/\S+@\S+\.\S+/.test(correo)) newErrors.correo = 'El correo electrónico no es válido.';
     if (!edad || edad <= 0) newErrors.edad = 'La edad debe ser un número positivo.';
     if (!password || password.length < 6) newErrors.password = 'La contraseña debe tener al menos 6 caracteres.';
+    if (costo < 0) newErrors.costo = 'El costo no puede ser negativo.';  // Validación para el costo
     return newErrors;
   };
 
@@ -60,7 +62,8 @@ const CaregiverForm = () => {
         edad: '',
         especialidades: '',
         experiencia: '',
-        password: ''
+        password: '',
+        costo: ''  // Limpiar el campo de costo
       });
     } catch (error) {
       setErrors({ server: error.response ? error.response.data.message : 'Error al enviar el formulario' });
@@ -104,6 +107,10 @@ const CaregiverForm = () => {
           <input type="password" name="password" value={password} onChange={onChange} placeholder="Contraseña" required />
           {errors.password && <p className="error">{errors.password}</p>}
           
+          {/* Campo para ingresar el costo */}
+          <input type="number" name="costo" value={costo} onChange={onChange} placeholder="Costo por sus servicios" />
+          {errors.costo && <p className="error">{errors.costo}</p>}
+
           {errors.server && <p className="error">{errors.server}</p>}
           
           <button type="submit">Enviar Solicitud</button>

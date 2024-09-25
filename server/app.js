@@ -13,6 +13,9 @@ const donationRoutes = require('./routes/donationRoutes');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profileRoutes');
 const reportRoutes = require('./routes/reportRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes'); // Importar feedbackRoutes
+const hiringRoutes = require('./routes/hiringRoutes'); // Importar feedbackRoutes
+const certificationsRoutes = require('./routes/certificationsRoutes'); // Importar feedbackRoutes
 
 dotenv.config();
 
@@ -44,6 +47,9 @@ app.use('/api/donations', donationRoutes);
 app.use('/api/auth', authRoutes); // Ruta para autenticación
 app.use('/api', profileRoutes); // Ruta para profile
 app.use('/api/reports', reportRoutes); // Ruta para reportes
+app.use('/api', feedbackRoutes); // Registrar las rutas de feedback
+app.use('/api/hiring', hiringRoutes); // Registrar las rutas de feedback
+app.use('/api', certificationsRoutes); // Registrar las rutas de feedback
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 5000;
