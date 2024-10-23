@@ -3,8 +3,8 @@ Project developed for the course "Computer Engineer Project". A system developed
 
 ## By
 
-- Sebastian Bogantes
-- Fernando Gonzalez
+- Sebastián Bogantes Rodríguez 
+- Fernando González Ramón
 - Pablo Sandí Sánchez
 
 ## Project Information
