@@ -50,7 +50,7 @@ const AdminApprovedCaregiversList = () => {
       <ul>
         {filteredCaregivers.map(caregiver => (
           <li key={caregiver._id}>
-            {caregiver.nombre} {caregiver.apellidos} - {caregiver.email}
+            {caregiver.nombre} {caregiver.apellidos} - {caregiver.correo} - {caregiver.residencia} - {caregiver.especialidades} - {caregiver.experiencia} - ₡{caregiver.costo}
             <button onClick={() => deleteCaregiver(caregiver._id)}>Eliminar</button>
             <button onClick={() => window.location.href = `/admin/caregivers/edit/${caregiver._id}`}>Editar</button>
           </li>

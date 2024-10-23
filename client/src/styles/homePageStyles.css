@@ -1,0 +1,108 @@
+/* General Container */
+.homepage-container {
+    background-color: #D9CE9A;
+    font-family: Arial, sans-serif;
+    color: #1B3059;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .hero-section {
+    background-color: #D9CE9A;
+    text-align: center;
+    padding: 40px;
+  }
+  
+  .hero-section h1 {
+    color: #BF1725;
+    font-size: 2.5rem;
+    margin: 0;
+  }
+  
+  /* Info Sections */
+  .content-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 0;
+    background-color: #1B3059;
+    color: #D9CE9A;
+  }
+  
+  .section-info {
+    width: 30%;
+  }
+  
+  .section-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .section-info p, .section-info ul {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .section-info ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .section-info ul li {
+    margin-bottom: 8px;
+  }
+  
+  /* Role Cards */
+  .roles-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 0;
+    background-color: #BF1725;
+    color: white;
+  }
+  
+  .role-card {
+    width: 30%;
+    padding: 20px;
+    background-color: #1B3059;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .role-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .role-card p {
+    font-size: 1.1rem;
+  }
+  
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #D9CE9A;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 1rem;
+    color: black;
+  }
+  
+  .footer-contact {
+    text-align: center;
+  }
+  
+  .footer-contact h4 {
+    margin-bottom: 5px;
+  }
+  
+  .footer-logo img {
+    max-width: 200px;
+    height: auto;
+  }
+  

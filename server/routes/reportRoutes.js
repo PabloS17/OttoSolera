@@ -35,8 +35,8 @@ router.get('/export/csv', authMiddleware, async (req, res) => {
       const donations = await Donation.find();
   
       // Definir los campos para cada colección
-      const caregiverFields = ['nombre', 'apellidos', 'correo', 'telefono', 'residencia'];
-      const beneficiaryFields = ['nombre', 'apellidos', 'correo', 'telefono', 'residencia', 'edad'];
+      const caregiverFields = ['nombre', 'apellidos', 'correo', 'telefono', 'residencia', 'especialidades', 'experiencia'];
+      const beneficiaryFields = ['nombre', 'apellidos', 'correo', 'telefono', 'residencia', 'edad', 'necesidades'];
       const donationFields = ['nombre', 'apellidos', 'perteneceCompania', 'createdAt'];
   
       // Crear CSV para cuidadores
@@ -54,7 +54,7 @@ router.get('/export/csv', authMiddleware, async (req, res) => {
                        'Donaciones Registradas\n' + donationsCsv;
   
       res.header('Content-Type', 'text/csv');
-      res.attachment('export.csv');
+      res.attachment('datos_exportados.csv');
       res.send(finalCsv); // Exportar todo en un solo archivo CSV con títulos
     } catch (err) {
       console.error(err.message);
@@ -71,7 +71,7 @@ router.get('/export/pdf', authMiddleware, async (req, res) => {
       const donations = await Donation.find();
   
       const doc = new PDFDocument();
-      res.setHeader('Content-Disposition', 'attachment; filename=export.pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename=datos_exportados.pdf');
       res.setHeader('Content-Type', 'application/pdf');
   
       // Añadir cuidadores al PDF
@@ -80,7 +80,7 @@ router.get('/export/pdf', authMiddleware, async (req, res) => {
         doc
           .fontSize(12)
           .text(
-            `Nombre: ${caregiver.nombre} ${caregiver.apellidos} | Correo: ${caregiver.correo} | Teléfono: ${caregiver.telefono} | Residencia: ${caregiver.residencia}`
+            `Nombre: ${caregiver.nombre} ${caregiver.apellidos} | Correo: ${caregiver.correo} | Teléfono: ${caregiver.telefono} | Residencia: ${caregiver.residencia} | Especialidades: ${caregiver.especialidades} | Experiencia: ${caregiver.experiencia}`
           );
       });
   
@@ -91,7 +91,7 @@ router.get('/export/pdf', authMiddleware, async (req, res) => {
         doc
           .fontSize(12)
           .text(
-            `Nombre: ${beneficiary.nombre} ${beneficiary.apellidos} | Correo: ${beneficiary.correo} | Teléfono: ${beneficiary.telefono} | Residencia: ${beneficiary.residencia}`
+            `Nombre: ${beneficiary.nombre} ${beneficiary.apellidos} | Correo: ${beneficiary.correo} | Teléfono: ${beneficiary.telefono} | Residencia: ${beneficiary.residencia} | Necesidades: ${beneficiary.necesidades}`
           );
       });
   
@@ -160,8 +160,7 @@ router.get('/export/monthly-report', async (req, res) => {
   
       // Obtener cuidadores activos en el último mes
       const activeCaregivers = await Caregiver.find({
-        estado: 'activo',
-        ultimoLogin: { $gte: oneMonthAgo }
+        updatedAt: { $gte: oneMonthAgo }
       }).countDocuments();
   
       // Obtener beneficiarios atendidos en el último mes
@@ -172,26 +171,25 @@ router.get('/export/monthly-report', async (req, res) => {
       // Obtener monto total de donaciones en el último mes
       const donations = await Donation.find({
         createdAt: { $gte: oneMonthAgo }
-      });
-      const totalDonations = donations.reduce((total, donation) => total + donation.monto, 0);
+      }).countDocuments();
   
       // Generar el CSV
       const data = [
         {
-          metric: 'Cuidadores Activos',
-          value: activeCaregivers
+          Metrica: 'Cuidadores Activos',
+          Valor: activeCaregivers
         },
         {
-          metric: 'Beneficiarios Atendidos',
-          value: attendedBeneficiaries
+          Metrica: 'Beneficiarios Activos',
+          Valor: attendedBeneficiaries
         },
         {
-          metric: 'Monto Total de Donaciones',
-          value: totalDonations
+          Metrica: 'Donaciones Recibidas',
+          Valor: donations
         }
       ];
   
-      const fields = ['metric', 'value'];
+      const fields = ['Metrica', 'Valor'];
       const json2csvParser = new Parser({ fields });
       const csv = json2csvParser.parse(data);
   

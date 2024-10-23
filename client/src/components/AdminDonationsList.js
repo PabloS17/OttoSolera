@@ -50,7 +50,7 @@ const AdminDonationsList = () => {
       <ul>
         {filteredDonations.map(donation => (
           <li key={donation._id}>
-            {donation.nombre} - {donation.email}
+            {donation.nombre} {donation.apellidos} - {donation.correo} - Pertenece a una compañía: {donation.perteneceCompania ? 'Sí' : 'No'}
             <button onClick={() => deleteDonation(donation._id)}>Eliminar</button>
           </li>
         ))}

@@ -14,8 +14,8 @@ const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profileRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes'); // Importar feedbackRoutes
-const hiringRoutes = require('./routes/hiringRoutes'); // Importar feedbackRoutes
-const certificationsRoutes = require('./routes/certificationsRoutes'); // Importar feedbackRoutes
+const hiringRoutes = require('./routes/hiringRoutes'); 
+const certificationsRoutes = require('./routes/certificationsRoutes');
 
 dotenv.config();
 
@@ -48,8 +48,8 @@ app.use('/api/auth', authRoutes); // Ruta para autenticación
 app.use('/api', profileRoutes); // Ruta para profile
 app.use('/api/reports', reportRoutes); // Ruta para reportes
 app.use('/api', feedbackRoutes); // Registrar las rutas de feedback
-app.use('/api/hiring', hiringRoutes); // Registrar las rutas de feedback
-app.use('/api', certificationsRoutes); // Registrar las rutas de feedback
+app.use('/api/hiring', hiringRoutes); // Registrar las rutas de hiring
+app.use('/api', certificationsRoutes); // Registrar las rutas de certificaciones
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 5000;

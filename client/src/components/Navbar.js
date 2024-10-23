@@ -11,7 +11,6 @@ const Navbar = () => {
         <li><Link to="/inscripcion-beneficiarios">Inscripción para Beneficiarios</Link></li>
         <li><Link to="/formulario-donadores">Formulario para Patrocinadores/Donadores</Link></li>
         <li><Link to="/login">Inico de sesión</Link></li>
-        <li><Link to="/admin/register">Admin register</Link></li>
       </ul>
     </nav>
   );

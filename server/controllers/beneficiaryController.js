@@ -54,7 +54,7 @@ exports.loginBeneficiary = async (req, res) => {
     }
 
     // Crear y asignar un token
-    const token = jwt.sign({ id: beneficiary._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: beneficiary._id }, process.env.JWT_SECRET, { expiresIn: '8h' });
 
     res.status(200).json({ token, beneficiary });
   } catch (error) {

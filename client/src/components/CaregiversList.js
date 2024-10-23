@@ -5,7 +5,7 @@ const CaregiversList = () => {
   const [caregivers, setCaregivers] = useState([]);
   const [favorites, setFavorites] = useState([]); // Para almacenar cuidadores favoritos
   const [search, setSearch] = useState('');
-  const [message, setMessage] = useState(''); // Mensaje para la solicitud de contratación
+  const [messages, setMessages] = useState({}); // Un objeto para almacenar los mensajes por cuidador
   const [showNotification, setShowNotification] = useState(false); // Para mostrar la notificación emergente
 
   // Obtener la lista de cuidadores
@@ -37,10 +37,18 @@ const CaregiversList = () => {
     fetchFavorites(); // Obtener favoritos al cargar el componente
   }, [search, fetchCaregivers, fetchFavorites]);
 
+  // Manejar el cambio de mensaje por cuidador
+  const handleMessageChange = (caregiverId, value) => {
+    setMessages({
+      ...messages,
+      [caregiverId]: value // Actualiza el mensaje para el cuidador específico
+    });
+  };
+
   // Enviar solicitud de contratación
   const sendRequest = async (caregiverId) => {
     try {
-      const res = await axios.post(`/api/caregivers/caregivers/${caregiverId}/contratacion`, { message });
+      const res = await axios.post(`/api/caregivers/caregivers/${caregiverId}/contratacion`, { message: messages[caregiverId] });
       alert(res.data.msg);
     } catch (error) {
       console.error('Error al enviar la solicitud:', error);
@@ -110,8 +118,8 @@ const CaregiversList = () => {
             <input
               type="text"
               placeholder="Mensaje para el cuidador"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              value={messages[caregiver._id] || ''} // Mostrar el mensaje específico para ese cuidador
+              onChange={(e) => handleMessageChange(caregiver._id, e.target.value)}
             />
 
             <button onClick={() => sendRequest(caregiver._id)}>

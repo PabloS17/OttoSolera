@@ -50,7 +50,7 @@ const CaregiverForm = () => {
     }
 
     try {
-      const res = await axios.post('/api/caregivers/register', formData);
+      await axios.post('/api/caregivers/register', formData);
       setSuccessMessage('Su solicitud de inscripción ha sido enviada exitosamente.');
       setFormData({
         nombre: '',

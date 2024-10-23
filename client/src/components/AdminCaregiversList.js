@@ -40,7 +40,7 @@ const AdminCaregiversList = () => {
       <ul>
         {filteredCaregivers.map(caregiver => (
           <li key={caregiver._id}>
-            {caregiver.nombre} {caregiver.apellidos} - {caregiver.residencia}
+            {caregiver.nombre} {caregiver.apellidos} - {caregiver.correo} - {caregiver.residencia} - {caregiver.especialidades} - {caregiver.experiencia} - ₡{caregiver.costo}
             <button onClick={() => approveCaregiver(caregiver._id)}>Aprobar</button>
             <button onClick={() => rejectCaregiver(caregiver._id)}>Rechazar</button>
           </li>

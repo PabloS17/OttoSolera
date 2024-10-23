@@ -50,7 +50,7 @@ const AdminBeneficiariesList = () => {
       <ul>
         {filteredBeneficiaries.map(beneficiary => (
           <li key={beneficiary._id}>
-            {beneficiary.nombre} {beneficiary.apellidos} - {beneficiary.correo}
+            {beneficiary.nombre} {beneficiary.apellidos} - {beneficiary.correo} - {beneficiary.residencia} - {beneficiary.necesidades}
             <button onClick={() => deleteBeneficiary(beneficiary._id)}>Eliminar</button>
             <button onClick={() => window.location.href = `/admin/beneficiaries/edit/${beneficiary._id}`}>Editar</button>
           </li>

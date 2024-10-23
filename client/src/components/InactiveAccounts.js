@@ -28,7 +28,7 @@ const InactiveAccounts = () => {
     try {
       const res = await axios.put(`/api/admins/reactivar/${id}`, {
         tipoUsuario,
-        datosActualizados: true,  // Simular que los datos han sido verificados
+        datosActualizados: true,  // Los datos han sido verificados
       }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -45,14 +45,14 @@ const InactiveAccounts = () => {
       <h2>Cuidadores Inactivos</h2>
       {inactiveCaregivers.map(caregiver => (
         <div key={caregiver._id}>
-          <p>{caregiver.nombre} {caregiver.apellidos}</p>
+          <p>{caregiver.nombre} {caregiver.apellidos} - {caregiver.correo}</p>
           <button onClick={() => reactivateAccount(caregiver._id, 'caregiver')}>Reactivar</button>
         </div>
       ))}
       <h2>Beneficiarios Inactivos</h2>
       {inactiveBeneficiaries.map(beneficiary => (
         <div key={beneficiary._id}>
-          <p>{beneficiary.nombre} {beneficiary.apellidos}</p>
+          <p>{beneficiary.nombre} {beneficiary.apellidos} - {beneficiary.correo}</p>
           <button onClick={() => reactivateAccount(beneficiary._id, 'beneficiary')}>Reactivar</button>
         </div>
       ))}

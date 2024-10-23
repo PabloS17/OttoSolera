@@ -22,29 +22,7 @@ router.get('/caregivers/pending', async (req, res) => {
       res.status(500).send('Error en el servidor');
     }
 });
-/*
-// Ruta para obtener cuidadores aprobados (estado: "aprobado")
-router.get('/caregivers/approved', async (req, res) => {
-    try {
-      const caregivers = await Caregiver.find({ estado: 'aprobado' }); // Busca cuidadores aprobados
-      res.json(caregivers);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Error en el servidor');
-    }
-});
 
-// Ruta para obtener cuidadores aprobados (estado: "rechazado")
-router.get('/caregivers/rejected', async (req, res) => {
-    try {
-      const caregivers = await Caregiver.find({ estado: 'rechazado' }); // Busca cuidadores aprobados
-      res.json(caregivers);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Error en el servidor');
-    }
-});
-*/
 // Ruta para aprobar un cuidador
 router.post('/caregivers/approve/:id', async (req, res) => {
     try {
@@ -257,7 +235,7 @@ router.put('/reactivar/:id', async (req, res) => {
       return res.status(404).json({ msg: 'Usuario no encontrado' });
     }
 
-    // Verificar que los datos estén actualizados (lógica simplificada)
+    // Verificar que los datos estén actualizados
     if (datosActualizados) {
       user.actividad = 'activo';  // Cambiar la actividad a 'activo'
       await user.save();

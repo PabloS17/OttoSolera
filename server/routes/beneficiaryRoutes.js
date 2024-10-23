@@ -8,7 +8,6 @@ const {
 } = require('../controllers/beneficiaryController');
 const Hiring = require('../models/Hiring');
 const authMiddleware = require('../middleware/authMiddleware');
-//const { adminAuth } = require('../middleware/authMiddleware');
 const Beneficiary = require('../models/Beneficiary');
 const Caregiver = require('../models/Caregiver');
 
